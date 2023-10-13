@@ -1,4 +1,4 @@
-package colr
+package logx
 
 import (
 	"fmt"
