@@ -21,6 +21,7 @@
   - [LogM](#logm)
   - [LogWithTimestamp](#logwithtimestamp)
   - [LogToFile](#logtofile)
+- [Guide](#guide)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -88,6 +89,10 @@ logx.LogWithTimestamp("System restarted", logx.FGCYAN, logx.BGWHITE)
 ```go
 logx.LogToFile("Log entry written to file", logx.FGRED, logx.BGGREEN, "log.txt")
 ```
+
+## Guide
+
+- [LogX — Enhance Your GoLang Projects with Colorful Logging](https://ritikchourasiya.medium.com/logx-enhance-your-golang-projects-with-colorful-logging-1f93df825cd8)
 
 ## Contributing
 We welcome contributions from the community! If you'd like to contribute to logx, follow these steps:
