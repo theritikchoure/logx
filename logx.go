@@ -47,7 +47,12 @@ const (
 	BLINK     = "\x1b[5m" // Define the ANSI escape code for blinking text.
 )
 
-var ColoringEnabled = false // Create a variable to control whether coloring is enabled for log messages.
+const (
+	DEBUG = BGCYAN // Define the background color for debug log messages.
+	FATAL = BGRED  // Define the background color for fatal log messages.
+)
+
+var ColoringEnabled = true // coloring is enabled for log messages by default.
 
 func Log(message string, fgColor string, bgColor string) {
 	// Log function for printing log messages with specified text and background colors.
@@ -107,6 +112,12 @@ func LogWithTimestamp(message string, fgColor string, bgColor string) {
 	Log(formattedMessage, fgColor, bgColor)               // Call the Log function to print the timestamped message.
 }
 
+func LogWithLevelAndTimestamp(message string, logLevel string, fgColor string, bgColor string) {
+	timestamp := time.Now().Format("2006-01-02 15:04:05")
+	formattedMessage := timestamp + " [" + logLevel + "] " + message
+	Log(formattedMessage, fgColor, bgColor)
+}
+
 func LogToFile(message string, fgColor string, bgColor string, filename string) {
 	// LogToFile function for logging messages to a file in addition to standard output.
 	// It opens the specified file for appending and logs the message to both the file and standard output.
@@ -120,4 +131,14 @@ func LogToFile(message string, fgColor string, bgColor string, filename string) 
 	writer := io.MultiWriter(os.Stdout, file) // Create a writer that writes to both stdout and the file.
 	log := log.New(writer, "", 0)             // Create a logger with the multi-writer.
 	log.Print(message)                        // Log the message to both stdout and the file.
+}
+
+func Debug(format string, args ...interface{}) {
+	message := fmt.Sprintf(format, args...)
+	Log(message, "", DEBUG)
+}
+
+func Fatal(format string, args ...interface{}) {
+	message := fmt.Sprintf(format, args...)
+	Log(message, "", FATAL)
 }
